@@ -1,5 +1,7 @@
 package com.example.kmz.octo_sniffle;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,7 +11,12 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.FileOutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,22 +27,23 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+
+        final Button button = findViewById(R.id.startButton);
+        final LinearLayout scroll = findViewById(R.id.llayout);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                setContentView(R.layout.content_main);
+                TextView tv1 = new TextView(getApplicationContext());
+                tv1.setText("This is tv1");
+
+                scroll.addView(tv1);
+
+
             }
         });
 
-        final Button button = findViewById(R.id.startButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Spiel startet!",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
     @Override
@@ -56,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }
