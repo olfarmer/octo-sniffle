@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Timer;
 import java.util.Random;
 import java.util.TimerTask;
+
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.time.StopWatch;
 
 import android.app.AlertDialog;
@@ -40,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        TextView highscore = findViewById(R.id.highscore);
+        highscore.setText("Bestzeit: " + getBestTime() + " ms");
 
         final Button button = findViewById(R.id.startButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +97,10 @@ public class MainActivity extends AppCompatActivity {
 
             //openDialog((int)sw.getTime()).show();
 
+            Leaderboard.addRecord("Charles", String.valueOf(sw.getTime()), getApplicationContext());
 
+            TextView highscore = findViewById(R.id.highscore);
+            highscore.setText("Bestzeit: " + getBestTime() + " ms");
 
         }
         else
@@ -162,8 +170,12 @@ public class MainActivity extends AppCompatActivity {
     public String getBestTime(){
         Record[] recs = Leaderboard.readRecord(getApplicationContext());
 
+        if(recs == null){
+            return "undefined";
+        }
+
         Arrays.sort(recs,new RecordComparator());
 
-        return recs[0].time;
+        return recs[recs.length - 1].time;
     }
 }
