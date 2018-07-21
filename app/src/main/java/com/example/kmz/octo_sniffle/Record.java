@@ -1,5 +1,7 @@
 package com.example.kmz.octo_sniffle;
 
+import java.util.Comparator;
+
 public class Record {
 
     String name;
@@ -11,5 +13,8 @@ public class Record {
         this.time = time;
 
     }
-//borderradius/cornerradius
+
+
+
 }
+

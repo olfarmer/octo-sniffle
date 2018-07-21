@@ -1,5 +1,7 @@
 package com.example.kmz.octo_sniffle;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.Random;
 import java.util.TimerTask;
@@ -146,12 +148,20 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                       dialog.cancel();
+                        dialog.cancel();
                     }
                 });
 
 
 
         return builder.create();
+    }
+
+    public String getBestTime(){
+        Record[] recs = Leaderboard.readRecord(getApplicationContext());
+
+        Arrays.sort(recs,new RecordComparator());
+
+        return recs[0].time;
     }
 }
