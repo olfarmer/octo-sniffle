@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         if(!isStarted) {
             //Toast.makeText(MainActivity.this, "Spiel startet!",Toast.LENGTH_SHORT).show();
             btn.setText("Drücke bei Rot");
+            btn.setBackgroundColor(Color.YELLOW);
 
             isStarted = true;
             int waitTime = rand.nextInt(10 - 5 + 1) + 5;
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
             isStarted = false;
         }
         btn.setText(R.string.mainButtonText);
+        btn.setBackgroundColor(Color.WHITE);
     }
 
     @Override
