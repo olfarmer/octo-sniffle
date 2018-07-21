@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         if(timerHasStopped) {
             sw.stop();
             //Toast.makeText(MainActivity.this, "Deine Reaktionszeit beträgt " + sw.getTime() + " ms", Toast.LENGTH_LONG).show();
-            //btn.setBackgroundColor(Color.WHITE);
+            btn.setBackgroundColor(Color.WHITE);
             TextView textView = findViewById(R.id.textView);
             textView.setText("Letzte Zeit: " + sw.getTime() + " ms");
 
