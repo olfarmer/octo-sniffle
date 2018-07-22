@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Leaderboard {
@@ -24,6 +25,8 @@ public class Leaderboard {
             e.printStackTrace();
         }
 
+        if(time )
+
         FileOutputStream outputStream;
         try {
             outputStream = context.openFileOutput(filename, Context.MODE_APPEND);
@@ -37,14 +40,14 @@ public class Leaderboard {
 
     }
 
-    static Record[] readRecord(Context context) {
+    static Integer[] readRecord(Context context) {
         File data = new File(context.getFilesDir(), filename);
 
 
         if(!data.exists()){
             return null;
         }
-        List<Record> lines = new ArrayList<>();
+        List<Integer> lines = new ArrayList<>();
 
         try {
             FileInputStream fis = context.openFileInput(filename);
@@ -53,7 +56,11 @@ public class Leaderboard {
             while((line = reader.readLine()) != null){
                 String[] splitted = line.split(" ");
                 if(splitted.length == 2){
-                    lines.add(new Record(splitted[0], splitted[1]));
+                    try{
+                        lines.add(Integer.parseInt(splitted[1]));
+                    } catch(Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
         } catch (FileNotFoundException e) {
@@ -62,7 +69,7 @@ public class Leaderboard {
             e.printStackTrace();
         }
 
-        Record[] recordArr = new Record[lines.size()];
+        Integer[] recordArr = new Integer[lines.size()];
         recordArr = lines.toArray(recordArr);
 
         return recordArr;
@@ -70,4 +77,17 @@ public class Leaderboard {
 
     }
 
+
+    static int getBestTime(Context context){
+        Integer[] recs = Leaderboard.readRecord(context);
+
+        if(recs == null){
+            return null;
+        }
+
+        Arrays.sort(recs);
+
+
+        return recs[0];
+    }
 }

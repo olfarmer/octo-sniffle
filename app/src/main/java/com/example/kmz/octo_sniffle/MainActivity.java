@@ -43,8 +43,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView highscore = findViewById(R.id.highscore);
-        highscore.setText("Bestzeit: " + getBestTime() + " ms");
+
+
+        String bestTime = getBestTime();
+        if(bestTime != null) {
+            TextView highscore = findViewById(R.id.highscore);
+            highscore.setText("Highscore: " + getBestTime() + " ms");
+        }
 
         final Button button = findViewById(R.id.startButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -52,9 +57,11 @@ public class MainActivity extends AppCompatActivity {
                 onStartClick(v, button);
             }
         });
+        button.setBackgroundColor(Color.GREEN);
     }
 
     public void onStartClick(final View v,final Button btn) {
+
 
         if(!isStarted) {
             //Toast.makeText(MainActivity.this, "Spiel startet!",Toast.LENGTH_SHORT).show();
@@ -88,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
         }
         if(timerHasStopped) {
             sw.stop();
-            //Toast.makeText(MainActivity.this, "Deine Reaktionszeit beträgt " + sw.getTime() + " ms", Toast.LENGTH_LONG).show();
-            btn.setBackgroundColor(Color.WHITE);
+
+            btn.setBackgroundColor(Color.GREEN);
             TextView textView = findViewById(R.id.textView);
             textView.setText("Letzte Zeit: " + sw.getTime() + " ms");
 
@@ -99,8 +106,11 @@ public class MainActivity extends AppCompatActivity {
 
             Leaderboard.addRecord("Charles", String.valueOf(sw.getTime()), getApplicationContext());
 
-            TextView highscore = findViewById(R.id.highscore);
-            highscore.setText("Bestzeit: " + getBestTime() + " ms");
+            String bestTime = getBestTime();
+            if(bestTime != null) {
+                TextView highscore = findViewById(R.id.highscore);
+                highscore.setText("Highscore: " + getBestTime() + " ms");
+            }
 
         }
         else
@@ -110,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             isStarted = false;
         }
         btn.setText(R.string.mainButtonText);
-        btn.setBackgroundColor(Color.WHITE);
+        btn.setBackgroundColor(Color.GREEN);
     }
 
     @Override
@@ -167,15 +177,5 @@ public class MainActivity extends AppCompatActivity {
         return builder.create();
     }
 
-    public String getBestTime(){
-        Record[] recs = Leaderboard.readRecord(getApplicationContext());
 
-        if(recs == null){
-            return "undefined";
-        }
-
-        Arrays.sort(recs,new RecordComparator());
-
-        return recs[recs.length - 1].time;
-    }
 }
