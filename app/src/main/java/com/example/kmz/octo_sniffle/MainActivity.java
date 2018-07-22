@@ -45,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        String bestTime = getBestTime();
+        String bestTime = Leaderboard.getBestTime(getApplicationContext());
         if(bestTime != null) {
             TextView highscore = findViewById(R.id.highscore);
-            highscore.setText("Highscore: " + getBestTime() + " ms");
+            highscore.setText("Highscore: " + Leaderboard.getBestTime(getApplicationContext()) + " ms");
         }
 
         final Button button = findViewById(R.id.startButton);
@@ -106,10 +106,10 @@ public class MainActivity extends AppCompatActivity {
 
             Leaderboard.addRecord("Charles", String.valueOf(sw.getTime()), getApplicationContext());
 
-            String bestTime = getBestTime();
+            String bestTime = Leaderboard.getBestTime(getApplicationContext());
             if(bestTime != null) {
                 TextView highscore = findViewById(R.id.highscore);
-                highscore.setText("Highscore: " + getBestTime() + " ms");
+                highscore.setText("Highscore: " + Leaderboard.getBestTime(getApplicationContext()) + " ms");
             }
 
         }

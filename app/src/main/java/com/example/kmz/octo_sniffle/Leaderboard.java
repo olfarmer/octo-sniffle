@@ -25,7 +25,7 @@ public class Leaderboard {
             e.printStackTrace();
         }
 
-        if(time )
+
 
         FileOutputStream outputStream;
         try {
@@ -78,7 +78,7 @@ public class Leaderboard {
     }
 
 
-    static int getBestTime(Context context){
+    static String getBestTime(Context context){
         Integer[] recs = Leaderboard.readRecord(context);
 
         if(recs == null){
@@ -88,6 +88,6 @@ public class Leaderboard {
         Arrays.sort(recs);
 
 
-        return recs[0];
+        return String.valueOf(recs[0]);
     }
 }
